@@ -37,3 +37,10 @@ def test_load_random_url():
     assert 'world' in url
     assert 'test' in url
     assert '\n' not in url
+
+def test_load_random_url_key_position():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    url = beatifurl.get_random_url('abc')
+    assert url[:5] == 'hello'
+    assert url[5:10] == 'world'
+    assert url[10:] == 'test'
