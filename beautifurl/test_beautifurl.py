@@ -29,3 +29,11 @@ def test_load_dictionary_from_key():
     beatifurl._dictPath = '/dev/null'
     words = beatifurl._get_dictionary(key)
     assert len(words) == 3
+
+def test_load_random_url():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    url = beatifurl.get_random_url('ttt')
+    assert 'hello' in url
+    assert 'world' in url
+    assert 'test' in url
+    assert '\n' not in url
