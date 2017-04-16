@@ -30,7 +30,7 @@ def test_load_dictionary_from_key():
     words = beatifurl._get_dictionary(key)
     assert len(words) == 3
 
-def test_load_random_url():
+def test_get_random_url():
     beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
     url = beatifurl.get_random_url('ttt')
     assert 'hello' in url
@@ -38,7 +38,7 @@ def test_load_random_url():
     assert 'test' in url
     assert '\n' not in url
 
-def test_load_random_url_key_position():
+def test_get_random_url_key_position():
     beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
     url = beatifurl.get_random_url('abc')
     assert url[:5] == 'hello'
