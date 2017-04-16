@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+import os
 import pytest
-rv = pytest.main(['/home/will/Workspace/beautiful_url',
-                  '--ignore=env', '--verbose'])
+
+path = os.path.dirname(os.path.realpath(__file__))
+rv = pytest.main([path, '--ignore=env', '--verbose'])
 exit(rv)
