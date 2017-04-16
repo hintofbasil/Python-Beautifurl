@@ -1,0 +1,1 @@
+from .beautifurl import Beautifurl
