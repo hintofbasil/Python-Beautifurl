@@ -19,3 +19,13 @@ def test_overwrite_dictionary_path_rel():
     expected = os.path.abspath('fake')
     assert beautifurl._dictPath == expected
     assert beautifurl._dictPath[0] == '/'
+
+def test_load_dictionary_from_key():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    key = 't'
+    words = beatifurl._get_dictionary(key)
+    assert len(words) == 3
+    # Ensure reads from cache
+    beatifurl._dictPath = '/dev/null'
+    words = beatifurl._get_dictionary(key)
+    assert len(words) == 3
