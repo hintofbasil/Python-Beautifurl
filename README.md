@@ -9,7 +9,7 @@ BeautifURL can be installed from pip
 ## Usage
 
     >>> from beautifurl import Beautifurl
-    >>> beautifurl = Beautifurl
+    >>> beautifurl = Beautifurl()
 
     >>> beautifurl.get_random_url('aaA', camelCase=True)
     'BeautifulAdventurousGiraffe'
@@ -25,6 +25,14 @@ BeautifURL can be installed from pip
     ScaryJollyFlamingo
     ScaryJollyNewt
     ScaryJollyEmu
+
+### Custom dictionaries
+
+The Beautifurl object `__init__` function takes an optional parameter `dictionaryPath`.  This allows the default dictionaries to be swapped for user specified dictionaries.
+
+    >>> beautifurl = Beautifurl(dictionaryPath='~/dictionaries')
+
+The dictionaries in this folder must be named `KEY_...` where `KEY` is a single character.  All keys should be unique.  Any characters after the underscore are ignored.  See `dictionaries` folder for examples.
 
 ## Dictionaries
 
