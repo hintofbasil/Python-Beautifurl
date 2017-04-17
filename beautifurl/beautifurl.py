@@ -26,12 +26,13 @@ class Beautifurl:
                                   self._dictPath + " with key " + key)
         return self._cache[key]
 
-    def get_random_url(self, formt):
+    def get_random_url(self, formt, camelCase=False):
         """
         Generate a url based on a given format.
 
         Args:
             formt: The format of the url.
+            camelCase (optional): Should the url use camel case.  (Default: False)
 
         Returns:
             The generated url.
@@ -52,6 +53,8 @@ class Beautifurl:
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
+        if camelCase:
+            selected = map(lambda x: x[0].upper() + x[1:], selected)
         return ''.join(selected)
 
     def count_permutations(self, formt):
