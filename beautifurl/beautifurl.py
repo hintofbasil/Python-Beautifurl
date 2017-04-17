@@ -92,17 +92,18 @@ class Beautifurl:
             lists = [list(x) for x in lists]
             for l in lists:
                 random.shuffle(l)
-        if camelCase:
-            lists = [map(lambda x: x[0].upper() + x[1:], x) for x in lists]
-        return PermutationIterator(itertools.product(*lists))
+        return PermutationIterator(itertools.product(*lists), camelCase)
 
 class PermutationIterator:
 
-    def __init__(self, iterator):
+    def __init__(self, iterator, camelCase):
         self.iterator = iterator
+        self.camelCase = camelCase
 
     def __next__(self):
         product = self.iterator.__next__()
+        if self.camelCase:
+            product = map(lambda x: x[0].upper() + x[1:], product)
         return ''.join(product)
 
     def __iter__(self):
