@@ -57,6 +57,7 @@ def test_get_permutations():
     expected = itertools.product(['hello', 'world', 'test'],
                                  ['hello'],
                                  ['hello', 'world', 'test'])
+    expected = [''.join(x) for x in expected]
     actual = beatifurl.get_permutations('tat')
     assert is_iterator(actual)
     for (a, e) in zip(actual, expected):
@@ -67,7 +68,7 @@ def test_get_permutations_shuffle():
     expected = itertools.product(['hello', 'world', 'test'],
                                  ['hello'],
                                  ['hello', 'world', 'test'])
-    expected = list(expected)
+    expected = [''.join(x) for x in expected]
     actual = beatifurl.get_permutations('tat', shuffle=True)
     assert is_iterator(actual)
     # TODO make test deterministic.
@@ -93,10 +94,17 @@ def test_get_permutations_camel_case():
     expected = itertools.product(['Hello', 'World', 'Test'],
                                  ['Hello'],
                                  ['Hello', 'World', 'Test'])
+    expected = [''.join(x) for x in expected]
     actual = beatifurl.get_permutations('tat', camelCase=True)
     assert is_iterator(actual)
     for (a, e) in zip(actual, expected):
         assert a == e
+
+def test_get_permutations_elements_are_string():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    actual = beatifurl.get_permutations('tat', camelCase=True)
+    for a in actual:
+        assert a.__class__ == str
 
 def is_iterator(obj):
     # Checks if object is an iterator.  Does not return true for list.
