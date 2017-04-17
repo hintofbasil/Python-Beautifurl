@@ -93,7 +93,7 @@ def test_get_permutations_camel_case():
     expected = itertools.product(['Hello', 'World', 'Test'],
                                  ['Hello'],
                                  ['Hello', 'World', 'Test'])
-    actual = beatifurl.get_permutations('tat')
+    actual = beatifurl.get_permutations('tat', camelCase=True)
     assert is_iterator(actual)
     for (a, e) in zip(actual, expected):
         assert a == e
