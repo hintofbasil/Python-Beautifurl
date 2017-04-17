@@ -27,6 +27,15 @@ class Beautifurl:
         return self._cache[key]
 
     def get_random_url(self, formt):
+        """
+        Generate a url based on a given format.
+
+        Args:
+            formt: The format of the url.
+
+        Returns:
+            The generated url.
+        """
         rng = random.Random()
         # Keep track of selected items to figure out where
         # to swap values
