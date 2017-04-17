@@ -11,13 +11,13 @@ BeautifURL can be installed from pip
     >>> from beautifurl import Beautifurl
     >>> beautifurl = Beautifurl()
 
-    >>> beautifurl.get_random_url('aaA', camelCase=True)
+    >>> beautifurl.get_random_url('aaA')
     'BeautifulAdventurousGiraffe'
 
     >>> beautifurl.count_permutations('aaA')
     10492819
 
-    >>> for url in beautifurl.get_permutations('aaA', shuffle=True, camelCase=True):
+    >>> for url in beautifurl.get_permutations('aaA', shuffle=True):
     ...     print(url)
     ... 
     ScaryJollyEchidna
