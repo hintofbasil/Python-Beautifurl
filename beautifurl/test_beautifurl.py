@@ -1,5 +1,7 @@
 from .beautifurl import Beautifurl
 
+import itertools
+
 import os
 
 def test_default_dictonary_path():
@@ -49,3 +51,27 @@ def test_count_permutations():
     beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
     perms = beatifurl.count_permutations('tat')
     assert perms == 3 * 1 * 3
+
+def test_get_permutations():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    expected = itertools.product(['hello', 'world', 'test'],
+                                 ['hello'],
+                                 ['hello', 'world', 'test'])
+    actual = beatifurl.get_permutations('tat')
+    assert is_iterator(actual)
+    for (a, e) in zip(actual, expected):
+        assert a == e
+
+def is_iterator(obj):
+    # Checks if object is an iterator.  Does not return true for list.
+    try:
+        obj.next
+        return True
+    except AttributeError:
+        pass
+    try:
+        obj.__next__
+        return True
+    except AttributeError:
+        pass
+    return False

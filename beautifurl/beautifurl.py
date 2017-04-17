@@ -1,12 +1,12 @@
+import itertools
 import os
 import random
 
 class Beautifurl:
 
-    _cache = {}
-
     def __init__(self,
                 dictionaryPath=None):
+        self._cache = {}
         if dictionaryPath is None:
             dirPath = os.path.dirname(os.path.abspath(__file__))
             self._dictPath = os.path.join(dirPath, 'dictionaries')
@@ -70,3 +70,16 @@ class Beautifurl:
         for key in formt:
             count = count * len(self._get_dictionary(key))
         return count
+
+    def get_permutations(self, formt):
+        """
+        Get all permutations for a given format
+
+        Args:
+            formt: The format of the url.
+
+        Returns:
+            An iterator that yields the permutations
+        """
+        lists = [self._get_dictionary(x) for x in formt]
+        return itertools.product(*lists)
