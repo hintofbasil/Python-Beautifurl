@@ -26,12 +26,13 @@ class Beautifurl:
                                   self._dictPath + " with key " + key)
         return self._cache[key]
 
-    def get_random_url(self, formt):
+    def get_random_url(self, formt, camelCase=False):
         """
         Generate a url based on a given format.
 
         Args:
             formt: The format of the url.
+            camelCase (optional): Should the url use camel case.  (Default: False)
 
         Returns:
             The generated url.
@@ -52,6 +53,8 @@ class Beautifurl:
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
+        if camelCase:
+            selected = map(lambda x: x[0].upper() + x[1:], selected)
         return ''.join(selected)
 
     def count_permutations(self, formt):
@@ -71,7 +74,7 @@ class Beautifurl:
             count = count * len(self._get_dictionary(key))
         return count
 
-    def get_permutations(self, formt, shuffle=False):
+    def get_permutations(self, formt, shuffle=False, camelCase=False):
         """
         Get all permutations for a given format
 
@@ -79,6 +82,7 @@ class Beautifurl:
             formt: The format of the url.
             shuffled (optional): Should the permutations be generated in a
                 random order.  (Default: False)
+            camelCase (optional): Should the url use camel case.  (Default: False)
 
         Returns:
             An iterator that yields the permutations
@@ -88,4 +92,6 @@ class Beautifurl:
             lists = [list(x) for x in lists]
             for l in lists:
                 random.shuffle(l)
+        if camelCase:
+            lists = [map(lambda x: x[0].upper() + x[1:], x) for x in lists]
         return itertools.product(*lists)

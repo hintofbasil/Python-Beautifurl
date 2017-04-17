@@ -81,6 +81,23 @@ def test_get_permutations_shuffle():
     assert expected == []
     assert outOfOrder
 
+def test_get_random_url_camel_case():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    url = beatifurl.get_random_url('abc', camelCase=True)
+    assert url[:5] == 'Hello'
+    assert url[5:10] == 'World'
+    assert url[10:] == 'Test'
+
+def test_get_permutations_camel_case():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    expected = itertools.product(['Hello', 'World', 'Test'],
+                                 ['Hello'],
+                                 ['Hello', 'World', 'Test'])
+    actual = beatifurl.get_permutations('tat', camelCase=True)
+    assert is_iterator(actual)
+    for (a, e) in zip(actual, expected):
+        assert a == e
+
 def is_iterator(obj):
     # Checks if object is an iterator.  Does not return true for list.
     try:
