@@ -71,15 +71,21 @@ class Beautifurl:
             count = count * len(self._get_dictionary(key))
         return count
 
-    def get_permutations(self, formt):
+    def get_permutations(self, formt, shuffle=False):
         """
         Get all permutations for a given format
 
         Args:
             formt: The format of the url.
+            shuffled (optional): Should the permutations be generated in a
+                random order.  (Default: False)
 
         Returns:
             An iterator that yields the permutations
         """
         lists = [self._get_dictionary(x) for x in formt]
+        if shuffle:
+            lists = [list(x) for x in lists]
+            for l in lists:
+                random.shuffle(l)
         return itertools.product(*lists)

@@ -62,6 +62,25 @@ def test_get_permutations():
     for (a, e) in zip(actual, expected):
         assert a == e
 
+def test_get_permutations_shuffle():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    expected = itertools.product(['hello', 'world', 'test'],
+                                 ['hello'],
+                                 ['hello', 'world', 'test'])
+    expected = list(expected)
+    actual = beatifurl.get_permutations('tat', shuffle=True)
+    assert is_iterator(actual)
+    # TODO make test deterministic.
+    # Can sometimes fail as shuffled list may be the same as
+    # unshuffled list
+    outOfOrder = False
+    for a in actual:
+        if expected.index(a) > 0:
+            outOfOrder = True
+        expected.remove(a)
+    assert expected == []
+    assert outOfOrder
+
 def is_iterator(obj):
     # Checks if object is an iterator.  Does not return true for list.
     try:
