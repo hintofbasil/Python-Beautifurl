@@ -26,6 +26,10 @@ BeautifURL can be installed from pip
     ScaryJollyNewt
     ScaryJollyEmu
 
+### Url format
+
+The examples above have a format string as their first argument.  This dictates which types of words the url should be made up of.  The examples all use `adjective adjective Animal`.  Any number or combination of keys may be used.  A full list of keys is available below.
+
 ### Custom dictionaries
 
 The Beautifurl object `__init__` function takes an optional parameter `dictionaryPath`.  This allows the default dictionaries to be swapped for user specified dictionaries.
