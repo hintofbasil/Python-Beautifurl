@@ -26,13 +26,14 @@ class Beautifurl:
                                   self._dictPath + " with key " + key)
         return self._cache[key]
 
-    def get_random_url(self, formt, camelCase=False):
+    def get_random_url(self, formt, camelCase=True):
         """
         Generate a url based on a given format.
 
         Args:
             formt: The format of the url.
-            camelCase (optional): Should the url use camel case.  (Default: False)
+            camelCase (optional): Should the url use camel case.
+                (Default: True)
 
         Returns:
             The generated url.
@@ -74,7 +75,7 @@ class Beautifurl:
             count = count * len(self._get_dictionary(key))
         return count
 
-    def get_permutations(self, formt, shuffle=False, camelCase=False):
+    def get_permutations(self, formt, shuffle=False, camelCase=True):
         """
         Get all permutations for a given format
 
@@ -82,7 +83,8 @@ class Beautifurl:
             formt: The format of the url.
             shuffled (optional): Should the permutations be generated in a
                 random order.  (Default: False)
-            camelCase (optional): Should the url use camel case.  (Default: False)
+            camelCase (optional): Should the url use camel case.
+                (Default: True)
 
         Returns:
             An iterator that yields the permutations
@@ -92,6 +94,19 @@ class Beautifurl:
             lists = [list(x) for x in lists]
             for l in lists:
                 random.shuffle(l)
-        if camelCase:
-            lists = [map(lambda x: x[0].upper() + x[1:], x) for x in lists]
-        return itertools.product(*lists)
+        return PermutationIterator(itertools.product(*lists), camelCase)
+
+class PermutationIterator:
+
+    def __init__(self, iterator, camelCase):
+        self.iterator = iterator
+        self.camelCase = camelCase
+
+    def __next__(self):
+        product = self.iterator.__next__()
+        if self.camelCase:
+            product = map(lambda x: x[0].upper() + x[1:], product)
+        return ''.join(product)
+
+    def __iter__(self):
+        return self
