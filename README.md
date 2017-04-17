@@ -11,21 +11,20 @@ BeautifURL can be installed from pip
     >>> from beautifurl import Beautifurl
     >>> beautifurl = Beautifurl
 
-    >>> b.get_random_url('aaA', camelCase=True)
+    >>> beautifurl.get_random_url('aaA', camelCase=True)
     'BeautifulAdventurousGiraffe'
 
-    >>> b.count_permutations('aaA')
+    >>> beautifurl.count_permutations('aaA')
     10492819
 
-    >>> for url in b.get_permutations('aaA', shuffle=True, camelCase=True):
+    >>> for url in beautifurl.get_permutations('aaA', shuffle=True, camelCase=True):
     ...     print(url)
     ... 
-    ('Annoyed', 'Worrisome', 'Curlew')
-    ('Annoyed', 'Worrisome', 'Urchin')
-    ('Annoyed', 'Worrisome', 'Hyena')
-    ('Annoyed', 'Worrisome', 'Herring')
-    ('Annoyed', 'Worrisome', 'Moose')
-    ...
+    ScaryJollyEchidna
+    ScaryJollyPig
+    ScaryJollyFlamingo
+    ScaryJollyNewt
+    ScaryJollyEmu
 
 ## Dictionaries
 
