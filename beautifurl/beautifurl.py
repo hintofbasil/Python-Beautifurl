@@ -44,3 +44,20 @@ class Beautifurl:
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
         return ''.join(selected)
+
+    def count_permutations(self, formt):
+        """
+        Get the number of possible permutations for a given format.
+
+        Args:
+            formt: The format of the url.
+
+        Returns:
+            The number of permutations.
+        """
+        if not formt:
+            return 0
+        count = 1
+        for key in formt:
+            count = count * len(self._get_dictionary(key))
+        return count

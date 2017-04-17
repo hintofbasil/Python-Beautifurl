@@ -44,3 +44,8 @@ def test_get_random_url_key_position():
     assert url[:5] == 'hello'
     assert url[5:10] == 'world'
     assert url[10:] == 'test'
+
+def test_count_permutations():
+    beatifurl = Beautifurl(dictionaryPath='test/dictionaries')
+    perms = beatifurl.count_permutations('tat')
+    assert perms == 3 * 1 * 3
