@@ -10,6 +10,9 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='beautifurl',
     packages=['beautifurl'],
+    package_data={
+        'beautifurl': ['dictionaries/*']
+    },
     version='0.0.1',
     license='MIT',  # example license
     description='Generates beautiful urls similar to Gfycat.',
@@ -17,6 +20,7 @@ setup(
     url='https://github.com/hintofbasil/Python-Beautifurl',
     author='William Hutcheson',
     author_email='crabbybearnose@shadowmail.co.uk',
+    test_suite="test",
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: MIT License',
