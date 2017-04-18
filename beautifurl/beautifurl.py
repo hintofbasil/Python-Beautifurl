@@ -102,11 +102,17 @@ class PermutationIterator:
         self.iterator = iterator
         self.camelCase = camelCase
 
-    def __next__(self):
-        product = self.iterator.__next__()
+    def __next__(self, product=None):
+        # Allow python2 next to use this function.
+        if product is None:
+            product = self.iterator.__next__()
         if not self.camelCase:
             product = [x.lower() for x in product]
         return ''.join(product)
+
+    # Python 2 support
+    def next(self):
+        return self.__next__(product=self.iterator.next())
 
     def __iter__(self):
         return self
