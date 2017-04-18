@@ -54,8 +54,8 @@ class Beautifurl:
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
-        if camelCase:
-            selected = map(lambda x: x[0].upper() + x[1:], selected)
+        if not camelCase:
+            selected = [x.lower() for x in selected]
         return ''.join(selected)
 
     def count_permutations(self, formt):
@@ -104,8 +104,8 @@ class PermutationIterator:
 
     def __next__(self):
         product = self.iterator.__next__()
-        if self.camelCase:
-            product = map(lambda x: x[0].upper() + x[1:], product)
+        if not self.camelCase:
+            product = [x.lower() for x in product]
         return ''.join(product)
 
     def __iter__(self):
