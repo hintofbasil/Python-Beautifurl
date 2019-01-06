@@ -1,3 +1,5 @@
+[![Build Status](https://drone.shadowmail.co.uk/api/badges/hintofbasil/Python-Beautifurl/status.svg)](https://drone.shadowmail.co.uk/hintofbasil/Python-Beautifurl)
+
 # BeautifURL
 
 ## Installation
