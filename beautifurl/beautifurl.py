@@ -5,28 +5,28 @@ import random
 class Beautifurl:
 
     def __init__(self,
-                dictionaryPath=None):
+                 dictionary_path=None):
         self._cache = {}
-        if dictionaryPath is None:
-            dirPath = os.path.dirname(os.path.abspath(__file__))
-            self._dictPath = os.path.join(dirPath, 'dictionaries')
+        if dictionary_path is None:
+            dir_path = os.path.dirname(os.path.abspath(__file__))
+            self._dict_path = os.path.join(dir_path, 'dictionaries')
         else:
-            self._dictPath = os.path.abspath(dictionaryPath)
+            self._dict_path = os.path.abspath(dictionary_path)
 
     def _get_dictionary(self, key):
         if key not in self._cache:
-            files = [os.path.join(self._dictPath, f) for f in os.listdir(self._dictPath)
-                     if os.path.isfile(os.path.join(self._dictPath, f))]
+            files = [os.path.join(self._dict_path, f) for f in os.listdir(self._dict_path)
+                     if os.path.isfile(os.path.join(self._dict_path, f))]
             files = [f for f in files if os.path.basename(f)[:2] == key + '_']
             if files:
-                with open (files[0], 'r') as f:
-                    self._cache[key] = [s.strip() for s in f.readlines()]
+                with open(files[0], 'r') as input_file:
+                    self._cache[key] = [s.strip() for s in input_file.readlines()]
             else:
                 raise IOError("Unable to find dictionary in " +
-                                  self._dictPath + " with key " + key)
+                              self._dict_path + " with key " + key)
         return self._cache[key]
 
-    def get_random_url(self, formt, camelCase=True):
+    def get_random_url(self, formt, camel_case=True):
         """
         Generate a url based on a given format.
 
@@ -41,20 +41,20 @@ class Beautifurl:
         rng = random.Random()
         # Keep track of selected items to figure out where
         # to swap values
-        selectedCounts = {}
+        selected_counts = {}
         selected = []
         while formt:
             key, formt = formt[0], formt[1:]
-            previousSelected = selectedCounts.get(key, 0)
-            selectedCounts[key] = previousSelected + 1
+            previous_selected = selected_counts.get(key, 0)
+            selected_counts[key] = previous_selected + 1
             options = self._get_dictionary(key)
-            swap = len(options) - previousSelected - 1
+            swap = len(options) - previous_selected - 1
             choice = rng.randint(0, swap)
             # Add to selected
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
-        if not camelCase:
+        if not camel_case:
             selected = [x.lower() for x in selected]
         return ''.join(selected)
 
@@ -75,7 +75,7 @@ class Beautifurl:
             count = count * len(self._get_dictionary(key))
         return count
 
-    def get_permutations(self, formt, shuffle=False, camelCase=True):
+    def get_permutations(self, formt, shuffle=False, camel_case=True):
         """
         Get all permutations for a given format
 
@@ -83,7 +83,7 @@ class Beautifurl:
             formt: The format of the url.
             shuffled (optional): Should the permutations be generated in a
                 random order.  (Default: False)
-            camelCase (optional): Should the url use camel case.
+            camel_case (optional): Should the url use camel case.
                 (Default: True)
 
         Returns:
@@ -92,21 +92,21 @@ class Beautifurl:
         lists = [self._get_dictionary(x) for x in formt]
         if shuffle:
             lists = [list(x) for x in lists]
-            for l in lists:
-                random.shuffle(l)
-        return PermutationIterator(itertools.product(*lists), camelCase)
+            for lst in lists:
+                random.shuffle(lst)
+        return PermutationIterator(itertools.product(*lists), camel_case)
 
 class PermutationIterator:
 
-    def __init__(self, iterator, camelCase):
+    def __init__(self, iterator, camel_case):
         self.iterator = iterator
-        self.camelCase = camelCase
+        self.camel_case = camel_case
 
     def __next__(self, product=None):
         # Allow python2 next to use this function.
         if product is None:
             product = self.iterator.__next__()
-        if not self.camelCase:
+        if not self.camel_case:
             product = [x.lower() for x in product]
         return ''.join(product)
 
