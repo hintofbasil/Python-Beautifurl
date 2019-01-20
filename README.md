@@ -16,9 +16,6 @@ BeautifURL can be installed from pip
     >>> beautifurl.get_random_url('aaA')
     'BeautifulAdventurousGiraffe'
 
-    >>> beautifurl.get_random_url('aaA', camelCase=False)
-    'foolishjoyoussquirrel'
-
     >>> beautifurl.count_permutations('aaA')
     10492819
 

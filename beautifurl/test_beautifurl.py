@@ -41,9 +41,7 @@ def test_get_random_url():
 def test_get_random_url_key_position():
     beatifurl = Beautifurl(dictionary_path='test/dictionaries')
     url = beatifurl.get_random_url('abc')
-    assert url[:5] == 'Hello'
-    assert url[5:10] == 'World'
-    assert url[10:] == 'Test'
+    assert url == 'HelloWorldTest'
 
 def test_count_permutations():
     beatifurl = Beautifurl(dictionary_path='test/dictionaries')
@@ -80,27 +78,9 @@ def test_get_permutations_shuffle():
     assert expected == []
     assert out_of_order
 
-def test_get_random_url_no_camel_case():
-    beatifurl = Beautifurl(dictionary_path='test/dictionaries')
-    url = beatifurl.get_random_url('abc', camel_case=False)
-    assert url[:5] == 'hello'
-    assert url[5:10] == 'world'
-    assert url[10:] == 'test'
-
-def test_get_permutations_no_camel_case():
-    beatifurl = Beautifurl(dictionary_path='test/dictionaries')
-    expected = itertools.product(['hello', 'world', 'test'],
-                                 ['hello'],
-                                 ['hello', 'world', 'test'])
-    expected = [''.join(x) for x in expected]
-    actual = beatifurl.get_permutations('tat', camel_case=False)
-    assert is_iterator(actual)
-    for (x, y) in zip(actual, expected):
-        assert x == y
-
 def test_get_permutations_elements_are_string():
     beatifurl = Beautifurl(dictionary_path='test/dictionaries')
-    actual = beatifurl.get_permutations('tat', camel_case=True)
+    actual = beatifurl.get_permutations('tat')
     for element in actual:
         assert element.__class__ == str
 
