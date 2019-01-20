@@ -32,6 +32,25 @@ steps:
   commands:
     - python test.py
 
+- name: upload
+  image: python
+  pull: always
+  environment:
+    TWINE_USERNAME:
+      from_secret: pypi_username
+    TWINE_PASSWORD:
+      from_secret: pypi_password
+  volumes:
+    - name: python-modules
+      path: /usr/local/lib/python3.7/site-packages
+  commands:
+    - pip install twine
+    - python setup.py sdist bdist_wheel
+    - twine upload dist/* 2>twine_error || grep "This filename has already been used, use a different version." twine_error
+  when:
+    branch: master
+    event: push
+
 volumes:
   - name: python-modules
     temp: {}
