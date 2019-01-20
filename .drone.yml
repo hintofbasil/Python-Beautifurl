@@ -44,9 +44,9 @@ steps:
     - name: python-modules
       path: /usr/local/lib/python3.7/site-packages
   commands:
-    - pip install twine
+    - pip install twine wheel
     - python setup.py sdist bdist_wheel
-    - twine upload dist/* 2>twine_error || grep "This filename has already been used, use a different version." twine_error
+    - twine upload --skip-existing dist/*
   when:
     branch: master
     event: push
