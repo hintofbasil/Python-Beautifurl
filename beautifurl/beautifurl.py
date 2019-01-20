@@ -26,14 +26,12 @@ class Beautifurl:
                               self._dict_path + " with key " + key)
         return self._cache[key]
 
-    def get_random_url(self, formt, camel_case=True):
+    def get_random_url(self, formt):
         """
         Generate a url based on a given format.
 
         Args:
             formt: The format of the url.
-            camelCase (optional): Should the url use camel case.
-                (Default: True)
 
         Returns:
             The generated url.
@@ -54,8 +52,6 @@ class Beautifurl:
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
-        if not camel_case:
-            selected = [x.lower() for x in selected]
         return ''.join(selected)
 
     def count_permutations(self, formt):
@@ -75,7 +71,7 @@ class Beautifurl:
             count = count * len(self._get_dictionary(key))
         return count
 
-    def get_permutations(self, formt, shuffle=False, camel_case=True):
+    def get_permutations(self, formt, shuffle=False):
         """
         Get all permutations for a given format
 
@@ -83,8 +79,6 @@ class Beautifurl:
             formt: The format of the url.
             shuffled (optional): Should the permutations be generated in a
                 random order.  (Default: False)
-            camel_case (optional): Should the url use camel case.
-                (Default: True)
 
         Returns:
             An iterator that yields the permutations
@@ -94,20 +88,17 @@ class Beautifurl:
             lists = [list(x) for x in lists]
             for lst in lists:
                 random.shuffle(lst)
-        return PermutationIterator(itertools.product(*lists), camel_case)
+        return PermutationIterator(itertools.product(*lists))
 
 class PermutationIterator:
 
-    def __init__(self, iterator, camel_case):
+    def __init__(self, iterator):
         self.iterator = iterator
-        self.camel_case = camel_case
 
     def __next__(self, product=None):
         # Allow python2 next to use this function.
         if product is None:
             product = self.iterator.__next__()
-        if not self.camel_case:
-            product = [x.lower() for x in product]
         return ''.join(product)
 
     # Python 2 support
