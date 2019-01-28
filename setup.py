@@ -13,8 +13,8 @@ setup(
     package_data={
         'beautifurl': ['dictionaries/*']
     },
-    version='0.1.0',
-    license='MIT',  # example license
+    version='0.1.1',
+    license='MIT',
     description='Generates beautiful urls similar to Gfycat.',
     long_description=README,
     url='https://github.com/hintofbasil/Python-Beautifurl',
@@ -22,7 +22,7 @@ setup(
     author_email='crabbybearnose@shadowmail.co.uk',
     test_suite="test",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',

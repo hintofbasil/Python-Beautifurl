@@ -17,16 +17,18 @@ BeautifURL can be installed from pip
     'BeautifulAdventurousGiraffe'
 
     >>> beautifurl.count_permutations('aaA')
-    10492819
+    9150136
 
     >>> for url in beautifurl.get_permutations('aaA', shuffle=True):
     ...     print(url)
-    ... 
-    ScaryJollyEchidna
-    ScaryJollyPig
-    ScaryJollyFlamingo
-    ScaryJollyNewt
-    ScaryJollyEmu
+    ...
+
+    GloriousDeterminedPeafowl
+    NiceSuccessfulJackal
+    DepressedStupidPartridge
+    StormyStrangeGiraffe
+    AngryPleasantMonkey
+    ...
 
 ### Url format
 

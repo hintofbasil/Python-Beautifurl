@@ -1,6 +1,29 @@
 import itertools
+import operator
 import os
 import random
+
+from functools import reduce
+
+from shuffled import Shuffled
+
+def get_nth_product(n, elements):
+    """
+    Get the nth product of a list without calculating any other products.
+    The order is the same as itertools.product(x).
+
+    Args:
+        n: The number product to generate
+        elements: The lists to generate the product from
+
+    Returns:
+        The nth product of elements
+    """
+    length = len(elements)
+    demoninators = [reduce(operator.mul, (map(len, elements[x + 1:])), 1)
+                    for x in range(length)]
+    return [elements[x][(n // demoninators[x]) % len(elements[x])]
+            for x in range(length)]
 
 class Beautifurl:
 
@@ -85,25 +108,12 @@ class Beautifurl:
         """
         lists = [self._get_dictionary(x) for x in formt]
         if shuffle:
-            lists = [list(x) for x in lists]
-            for lst in lists:
-                random.shuffle(lst)
-        return PermutationIterator(itertools.product(*lists))
-
-class PermutationIterator:
-
-    def __init__(self, iterator):
-        self.iterator = iterator
-
-    def __next__(self, product=None):
-        # Allow python2 next to use this function.
-        if product is None:
-            product = self.iterator.__next__()
-        return ''.join(product)
-
-    # Python 2 support
-    def next(self):
-        return self.__next__(product=self.iterator.next())
-
-    def __iter__(self):
-        return self
+            iterator_length = self.count_permutations(formt)
+            return map(
+                lambda x: ''.join(get_nth_product(x, lists)),
+                Shuffled(iterator_length)
+            )
+        return map(
+            ''.join,
+            itertools.product(*lists)
+        )
