@@ -13,7 +13,10 @@ setup(
     package_data={
         'beautifurl': ['dictionaries/*']
     },
-    version='0.1.1',
+    install_requires=[
+        'shuffled>=0.2'
+    ]
+    version='0.1.2',
     license='MIT',
     description='Generates beautiful urls similar to Gfycat.',
     long_description=README,
