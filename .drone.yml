@@ -1,48 +1,24 @@
+---
 kind: pipeline
 name: default
 
 steps:
-- name: install
-  image: python
+- name: install-and-test
+  image: python:3.7
   pull: always
-  volumes:
-    - name: python-modules
-      path: /usr/local/lib/python3.7/site-packages
   commands:
     - pip install -r requirements.txt
-
-- name: lint
-  group: verify
-  image: python
-  pull: always
-  volumes:
-    - name: python-modules
-      path: /usr/local/lib/python3.7/site-packages
-  commands:
-    - pip install pylint
     - pylint --disable=missing-docstring,protected-access,fixme beautifurl
-
-- name: test
-  group: verify
-  image: python
-  pull: always
-  volumes:
-    - name: python-modules
-      path: /usr/local/lib/python3.7/site-packages
-  commands:
     - python test.py
 
 - name: upload
-  image: python
+  image: python:3.7
   pull: always
   environment:
     TWINE_USERNAME:
       from_secret: pypi_username
     TWINE_PASSWORD:
       from_secret: pypi_password
-  volumes:
-    - name: python-modules
-      path: /usr/local/lib/python3.7/site-packages
   commands:
     - pip install twine wheel
     - python setup.py sdist bdist_wheel
@@ -51,6 +27,8 @@ steps:
     branch: master
     event: push
 
-volumes:
-  - name: python-modules
-    temp: {}
+---
+kind: signature
+hmac: 7f9fecfbe12f2a1069171f05a01cb916b08ec5ae55ca1fd5e9293a821e496d00
+
+...
