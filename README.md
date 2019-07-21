@@ -57,10 +57,8 @@ Additional words and lists may be submitted in pull requests.  Please run the ne
 
 Please ensure you have permission to use any lists before submitting a pull request.  If a license is required please name the license file license.LIST_NAME.
 
-    ./organise LIST_NAME [MAX_SIZE] >> tmp
+    ./organise LIST_NAME [MAX_SIZE] > tmp
     mv tmp LIST_NAME
-
-> There is currently a bug with the organise script which disallows writing to the read from file.  Please use a temporary file as above until this is fixed.
 
 ### Code
 
