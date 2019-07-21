@@ -20,6 +20,7 @@ def main():
         read = [x.strip() for x in read]
         read = filter(lambda x: ' ' not in x, read) # Filter out two word elements
         read = filter(lambda x: len(x) >= min_length, read) # Filter out small words
+        read = filter(lambda x: '-' not in x, read)
         read = map(lambda x: x[0].upper() + x[1:].lower(), read)
         read = list(set(read)) # Remove duplicates
         read = sorted(read) # Sort
