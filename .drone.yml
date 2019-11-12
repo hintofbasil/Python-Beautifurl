@@ -1,5 +1,6 @@
 ---
 kind: pipeline
+type: kubernetes
 name: default
 
 steps:
@@ -29,6 +30,6 @@ steps:
 
 ---
 kind: signature
-hmac: 7f9fecfbe12f2a1069171f05a01cb916b08ec5ae55ca1fd5e9293a821e496d00
+hmac: a3eaacfb9f3399bf5d910c801b2a0e3db1619d930a211d1083a8f5a69e6c968a
 
 ...
