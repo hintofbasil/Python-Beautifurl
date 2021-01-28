@@ -16,7 +16,7 @@ setup(
     install_requires=[
         'shuffled>=0.2'
     ],
-    version='0.1.3',
+    version=os.environ.get('VERSION', 'dev'),
     license='MIT',
     description='Generates beautiful urls similar to Gfycat.',
     long_description=README,
