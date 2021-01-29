@@ -1,4 +1,4 @@
-[![Build Status](https://drone.shadowmail.co.uk/api/badges/hintofbasil/Python-Beautifurl/status.svg)](https://drone.shadowmail.co.uk/hintofbasil/Python-Beautifurl)
+![CI](https://github.com/hintofbasil/Python-Beautifurl/workflows/CI/badge.svg?branch=master)
 
 # BeautifURL
 
