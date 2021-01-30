@@ -1,2 +1,2 @@
-include README.md
+include README.md Pipfile
 recursive-exclude beautifurl test*.py
