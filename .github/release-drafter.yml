@@ -4,6 +4,9 @@ categories:
   - title: 'Dependencies'
     labels:
       - 'dependencies'
+  - title: 'Refactor'
+    labels:
+      - 'refactor'
 version-resolver:
   major:
     labels:
