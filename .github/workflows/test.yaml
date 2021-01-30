@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  push: 
+  push:
   pull_request:
 
 jobs:
@@ -15,12 +15,15 @@ jobs:
         python-version: 3.7
     - name: Install
       run: |
-        pip install wheel twine
         pip install -r requirements.txt
+    - name: Lint
+      run: |
+        pip install black
+        black --check ./beautifurl ./test
     - name: Test
       run: |
-        pylint --disable=missing-docstring,protected-access,fixme beautifurl
         python test.py
     - name: Build
       run: |
+        pip install wheel twine
         python setup.py sdist bdist_wheel

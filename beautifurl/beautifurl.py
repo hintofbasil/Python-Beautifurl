@@ -7,6 +7,7 @@ from functools import reduce
 
 from shuffled import Shuffled
 
+
 def get_nth_product(n, elements):
     """
     Get the nth product of a list without calculating any other products.
@@ -20,33 +21,41 @@ def get_nth_product(n, elements):
         The nth product of elements
     """
     length = len(elements)
-    demoninators = [reduce(operator.mul, (map(len, elements[x + 1:])), 1)
-                    for x in range(length)]
-    return [elements[x][(n // demoninators[x]) % len(elements[x])]
-            for x in range(length)]
+    demoninators = [
+        reduce(operator.mul, (map(len, elements[x + 1 :])), 1) for x in range(length)
+    ]
+    return [
+        elements[x][(n // demoninators[x]) % len(elements[x])] for x in range(length)
+    ]
+
 
 class Beautifurl:
-
-    def __init__(self,
-                 dictionary_path=None):
+    def __init__(self, dictionary_path=None):
         self._cache = {}
         if dictionary_path is None:
             dir_path = os.path.dirname(os.path.abspath(__file__))
-            self._dict_path = os.path.join(dir_path, 'dictionaries')
+            self._dict_path = os.path.join(dir_path, "dictionaries")
         else:
             self._dict_path = os.path.abspath(dictionary_path)
 
     def _get_dictionary(self, key):
         if key not in self._cache:
-            files = [os.path.join(self._dict_path, f) for f in os.listdir(self._dict_path)
-                     if os.path.isfile(os.path.join(self._dict_path, f))]
-            files = [f for f in files if os.path.basename(f)[:2] == key + '_']
+            files = [
+                os.path.join(self._dict_path, f)
+                for f in os.listdir(self._dict_path)
+                if os.path.isfile(os.path.join(self._dict_path, f))
+            ]
+            files = [f for f in files if os.path.basename(f)[:2] == key + "_"]
             if files:
-                with open(files[0], 'r') as input_file:
+                with open(files[0], "r") as input_file:
                     self._cache[key] = [s.strip() for s in input_file.readlines()]
             else:
-                raise IOError("Unable to find dictionary in " +
-                              self._dict_path + " with key " + key)
+                raise IOError(
+                    "Unable to find dictionary in "
+                    + self._dict_path
+                    + " with key "
+                    + key
+                )
         return self._cache[key]
 
     def get_random_url(self, formt):
@@ -75,7 +84,7 @@ class Beautifurl:
             selected.append(options[choice])
             # Swap choice with last selectable to ensure unique
             options[choice], options[swap] = options[swap], options[choice]
-        return ''.join(selected)
+        return "".join(selected)
 
     def count_permutations(self, formt):
         """
@@ -110,10 +119,6 @@ class Beautifurl:
         if shuffle:
             iterator_length = self.count_permutations(formt)
             return map(
-                lambda x: ''.join(get_nth_product(x, lists)),
-                Shuffled(iterator_length)
+                lambda x: "".join(get_nth_product(x, lists)), Shuffled(iterator_length)
             )
-        return map(
-            ''.join,
-            itertools.product(*lists)
-        )
+        return map("".join, itertools.product(*lists))
