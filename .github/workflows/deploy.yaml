@@ -19,13 +19,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Build
+      env:
+        VERSION:  ${{ github.event.release.tag_name }}
       run: |
         python setup.py sdist bdist_wheel
     - name: Upload
       uses: pypa/gh-action-pypi-publish@v1.4.1
-      env:
-        VERSION:  ${{ github.event.release.tag_name }}
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
-
